@@ -1,0 +1,30 @@
+h1,
+h2,
+p {
+  margin: 0;
+  padding: 0;
+
+ 
+}
+
+li {
+  list-style: none;
+}
+
+.App {
+  background-color: rgba(239, 219, 151, 0.524);
+
+  border-radius: 5px;
+}
+.phonebook {
+  max-width: 800px;
+
+  margin-right: auto;
+  margin-left: auto;
+
+  border-radius: 5px;
+
+  background-color: rgba(0, 128, 128, 0.524);
+}
+
+
