@@ -1,115 +1,66 @@
-import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { Input } from "antd";
-import { Button, Typography } from "antd";
-import { nanoid } from "nanoid";
-import { ToastContainer } from "react-toastify";
+import { selectContactsList } from "redux/constacts/selectors";
+import { addContact } from "redux/constacts/operations";
 
-import { addContact } from "../../redux/contactsSlice";
-import { showToast } from "../../toastify/toastify";
-
-import s from "./ContactForm.module.scss";
-
-const INITIAL_STATE = {
-  name: "",
-  phone: "",
-};
-
-const { Title, Text } = Typography;
-
-export default function ContactForm() {
-  const [form, setForm] = useState(INITIAL_STATE);
-
+export const ContactForm = () => {
   const dispatch = useDispatch();
-  const { contacts } = useSelector((state) => state.contacts);
+  const contacts = useSelector(selectContactsList);
 
-  const handleChangeForm = ({ target }) => {
-    const { name, value } = target;
-    setForm((prevForm) => ({ ...prevForm, [name]: value }));
-  };
-
-  const handleFormSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    const { name, phone } = form;
-
-    const newContact = {
-      id: nanoid(5),
-      name: name,
-      phone: phone,
-    };
-
-    const isValidatedForm = validateForm();
-    if (!isValidatedForm) return;
-
-    dispatch(addContact(newContact));
-
-    showToast("success", "You added a contact");
-
-    resetForm();
-  };
-
-  const validateForm = () => {
-    const { name, phone } = form;
-    if (!name || !phone) {
-      showToast("error", "Some field is empty");
-
-      return false;
+    const form = e.target;
+    const formName = e.target.elements.name.value;
+    const formNumber = e.target.elements.number.value;
+    if (contacts.some(({ name }) => name === formName)) {
+      return alert(`${formName} is already in contacts`);
     }
-    return handleCheckContact();
+
+    if (contacts.some(({ number }) => number === formNumber)) {
+      return alert(`${formNumber} is already in contacts`);
+    }
+
+    dispatch(addContact({ name: formName, number: formNumber.toString() }))
+      .unwrap()
+      .then((originalPromiseResult) => {
+        // Notify.success(
+        //   `${originalPromiseResult.name} successfully added to contacts`
+        // );
+      })
+      .catch(() => {
+        // Notify.failure("Sorry, something's wrong");
+      });
+
+    form.reset();
   };
 
-  const handleCheckContact = () => {
-    const { name } = form;
-
-    const isExistContact = !!contacts.find((contact) => contact.name === name);
-
-    isExistContact && showToast("info", "Contact already exists");
-
-    resetForm();
-
-    return !isExistContact;
-  };
-
-  const resetForm = () => setForm(INITIAL_STATE);
-
-  const { name, phone } = form;
-
-  const nameInputId = nanoid();
-  const phoneInputId = nanoid();
   return (
-    <div className={s.formContainer}>
-      <ToastContainer />
-
-      <form className={s.form} onSubmit={handleFormSubmit}>
-        <Title className={s.title}>Phonebook</Title>
-        <Text className={s.text} strong>
-          Name
-        </Text>
-        <Input
-          value={name}
-          onChange={handleChangeForm}
-          id={nameInputId}
+    <form onSubmit={handleSubmit} autoComplete="off">
+      <label>
+        Name
+        <input
           type="text"
           name="name"
-          placeholder="Enter name"
+          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+          required
+          placeholder="Enter name ..."
+          value={contacts.name}
         />
-        <Text className={s.text} strong>
-          Number
-        </Text>
-        <Input
-          id={phoneInputId}
+      </label>
+      <label>
+        Number
+        <input
           type="tel"
-          name="phone"
-          placeholder="Enter phone number"
-          value={phone}
-          onChange={handleChangeForm}
+          name="number"
+          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+          placeholder="Enter number ..."
+          value={contacts.number}
         />
-        <Button htmlType="submit" className={s.btn} type="primary" block>
-          Add Contact
-        </Button>
-      </form>
-    </div>
+      </label>
+      <button type="submit">New contact</button>
+    </form>
   );
-}
+};

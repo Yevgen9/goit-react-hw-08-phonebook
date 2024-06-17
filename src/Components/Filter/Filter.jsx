@@ -1,28 +1,26 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { Input, Typography } from "antd";
+import { setContactsFilter } from "../../redux/contacts/filterSlice";
+import { selectContactsFilter } from "../../redux/contacts/selectors";
 
-import { setFilter } from "../../redux/filterSlice";
-import s from "./Filter.module.scss";
-
-const { Title } = Typography;
-
-const Filter = () => {
+export const Filter = () => {
   const dispatch = useDispatch();
+  const filter = useSelector(selectContactsFilter);
+
+  const handleChangeFilter = ({ currentTarget: { value } }) => {
+    const normalizedValue = value.toLowerCase().trim();
+    dispatch(setContactsFilter(normalizedValue));
+  };
 
   return (
-    <div className={s.filterContainer}>
-      <Title level={2}>Contacts</Title>
-      <Input
-        className={s.filterInput}
+    <label>
+      <input
         type="text"
         name="filter"
-        onChange={(e) => dispatch(setFilter(e.currentTarget.value))}
-        placeholder="Find contact by name"
+        placeholder="Enter contact name"
+        value={filter}
+        onChange={handleChangeFilter}
       />
-    </div>
+    </label>
   );
 };
-
-export default Filter;
