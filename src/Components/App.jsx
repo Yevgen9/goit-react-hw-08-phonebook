@@ -1,6 +1,6 @@
 import { useEffect, lazy } from "react";
 import { useDispatch } from "react-redux";
-import { Route, Routes } from "react-router-dom";
+import { Route,  Routes } from "react-router-dom";
 
 import { useAuth } from "../hooks/useAuth";
 
@@ -28,25 +28,29 @@ export const App = () => {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
+
         <Route
           path="/register"
           element={
-            <RestrictedRoute redirectTo="/tasks" component={<RegisterPage />} />
+            <RestrictedRoute redirectTo="/login" component={<RegisterPage />} />
           }
         />
+
         <Route
           path="/login"
           element={
             <RestrictedRoute redirectTo="/contacts" component={<LoginPage />} />
           }
         />
+
         <Route
-          path="/tasks"
+          path="/contacts"
           element={
             <PrivateRoute redirectTo="/login" component={<ContactsPage />} />
           }
         />
-        <Route path="*" component={<HomePage />} />
+
+        <Route path="*" element={<HomePage />} />
       </Route>
     </Routes>
   );
