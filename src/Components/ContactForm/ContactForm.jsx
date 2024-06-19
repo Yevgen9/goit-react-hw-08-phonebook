@@ -22,9 +22,6 @@ export default function ContactForm() {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContactsList);
 
-  const [name, setName] = useState("");
-  const [number, setNumber] = useState("");
-
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
@@ -53,9 +50,7 @@ export default function ContactForm() {
       showToast("info", "Sorry, something's wrong");
     }
 
-    // form.reset();
-    setName("");
-    setNumber("");
+    form.reset();
   };
 
   return (
