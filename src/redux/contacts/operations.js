@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import axios from "axios";
 
+// GET @ /contacts  =  Get all user contacts
 export const fetchContacts = createAsyncThunk(
   "contacts/FetchAll",
   async (_, thunkAPI) => {
@@ -14,6 +15,7 @@ export const fetchContacts = createAsyncThunk(
   }
 );
 
+// POST @ /contacts  =  Create a new contact
 export const addContact = createAsyncThunk(
   "contacts/addContact",
   async (newContact, thunkAPI) => {
@@ -26,6 +28,7 @@ export const addContact = createAsyncThunk(
   }
 );
 
+// DELETE @  /contacts/{contactId}  =  Delete contact.
 export const deleteContact = createAsyncThunk(
   "contacts/deleteContact",
   async (contactId, thunkAPI) => {

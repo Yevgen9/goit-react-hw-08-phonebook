@@ -30,14 +30,46 @@
 //     </div>
 //   );
 // }
+//==================================================================================
 
+// import ContactForm from "../../Components/ContactForm/ContactForm";
+// import Filter from "../../Components/Filter/Filter";
+// import ContactList from "../../Components/ContactList/ContactList";
+
+// export default function Contacts() {
+//   return (
+//     <>
+//       <ContactForm />
+//       <Filter />
+//       <h1>Здесь должны быть контакты!!!!!!!!!!!!</h1>
+//       <ContactList />
+//     </>
+//   );
+// }
+//========================================================================================
+
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchContacts } from "../../redux/contacts/operations";
+import { selectIsLoading } from "../../redux/contacts/selectors";
 import ContactForm from "../../Components/ContactForm/ContactForm";
+import Filter from "../../Components/Filter/Filter";
+import ContactList from "../../Components/ContactList/ContactList";
 
 export default function Contacts() {
+  const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoading);
+
+  useEffect(() => {
+    dispatch(fetchContacts);
+  }, [dispatch]);
+
   return (
-    <>
+    <div>
       <ContactForm />
-      <h1>Здесь должны быть контакты!!!!!!!!!!!!</h1>
-    </>
+      <Filter />
+      {isLoading && <div>Request in progress...</div>}
+      <ContactList />
+    </div>
   );
 }

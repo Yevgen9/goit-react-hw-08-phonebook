@@ -1,15 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import { setContactsFilter } from "../../redux/contacts/filterSlice";
+import { setFilter } from "../../redux/contacts/filterSlice";
 import { selectContactsFilter } from "../../redux/contacts/selectors";
 
-export const Filter = () => {
+export default function Filter() {
   const dispatch = useDispatch();
   const filter = useSelector(selectContactsFilter);
 
   const handleChangeFilter = ({ currentTarget: { value } }) => {
     const normalizedValue = value.toLowerCase().trim();
-    dispatch(setContactsFilter(normalizedValue));
+    dispatch(setFilter(normalizedValue));
   };
 
   return (
@@ -23,4 +23,4 @@ export const Filter = () => {
       />
     </label>
   );
-};
+}
