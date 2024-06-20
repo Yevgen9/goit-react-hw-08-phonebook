@@ -38,7 +38,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Input, Typography } from "antd";
 
-import { selectContactsFilter } from "../../redux/contacts/selectors";
+
 import { setFilter } from "../../redux/contacts/filterSlice";
 
 import s from "./Filter.module.scss";
@@ -47,12 +47,6 @@ const { Title } = Typography;
 
 const Filter = () => {
   const dispatch = useDispatch();
-  const filter = useSelector(selectContactsFilter);
-
-  const handleChangeFilter = ({ currentTarget: { value } }) => {
-    const normalizedValue = value.toLowerCase().trim();
-    dispatch(setFilter(normalizedValue));
-  };
 
   return (
     <div className={s.filterContainer}>
@@ -61,9 +55,9 @@ const Filter = () => {
         className={s.filterInput}
         type="text"
         name="filter"
-        onChange={handleChangeFilter}
+        onChange={(e) => dispatch(setFilter(e.currentTarget.value))}
         placeholder="Find contact by name"
-        value={filter}
+        // value={filter}
       />
     </div>
   );
