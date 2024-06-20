@@ -1,63 +1,62 @@
-import PropTypes from "prop-types";
-
-import { useDispatch } from "react-redux";
-
-import { deleteContact } from "../../redux/contacts/operations";
-import { showToast } from "../../toastify/toastify";
+import { useDispatch, useSelector } from "react-redux";
 
 import { ToastContainer } from "react-toastify";
+import { Button, Flex, Typography } from "antd";
 
+import { showToast } from "../../toastify/toastify";
+import { deleteContact } from "../../redux/contacts/operations";
+import { selectContactsList } from "../../redux/contacts/selectors";
 
+import s from "./ContactListItem.module.scss";
 
-export const ContactsListItem = ({ id, name, number }) => {
+const { Text } = Typography;
+
+export const ContactsListItem = () => {
   const dispatch = useDispatch();
 
-  
+  const contacts = useSelector(selectContactsList);
 
-
-  // const handleDeleteContact = async (userId) => {
-  //   try {
-  //     const originalPromiseResult = await dispatch(
-  //       deleteContact(userId)
-  //     ).unwrap();
-  //     showToast("success", `${originalPromiseResult.name} You deleted contact`);
-  //   } catch (error) {
-  //     showToast("info", "Sorry, something's wrong");
-  //   }
-  // };
-
-  const handleDeleteContact = async (userId) => {
+  const handleDeleteContact = async (contactId) => {
     try {
-      const resultAction = await dispatch(deleteContact(userId));
-      if (deleteContact.fulfilled.match(resultAction)) {
-        showToast(
-          "success",
-          `${resultAction.payload.name} You deleted contact`
-        );
-      } else {
-        showToast("info", "Sorry, something's wrong");
-      }
+      const originalPromiseResult = await dispatch(
+        deleteContact(contactId)
+      ).unwrap();
+      showToast(
+        "success",
+        `You deleted contact  ${originalPromiseResult.name} `
+      );
     } catch (error) {
       showToast("info", "Sorry, something's wrong");
     }
   };
 
   return (
-    <div key={id}>
+    <>
       <ToastContainer />
-      <p>{name}</p>
+      <ul className={s.list}>
+        {contacts?.map(({ id, name, number }) => (
+          <li key={id} className={s.item}>
+            <Text strong>{name} :</Text>
 
-      <p>{number}</p>
+            <div className={s.numberText}>
+              <Text strong>{number}</Text>
+            </div>
 
-      <button onClick={() => handleDeleteContact(id)}>Delete</button>
-    </div>
+            <Flex gap="small" wrap>
+              <Button
+                onClick={() => handleDeleteContact(id)}
+                size="small"
+                type="primary"
+                className={s.btnDel}
+              >
+                Delete Contact
+              </Button>
+            </Flex>
+          </li>
+        ))}
+      </ul>
+    </>
   );
-};
-
-ContactsListItem.propTypes = {
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
 };
 
 export default ContactsListItem;

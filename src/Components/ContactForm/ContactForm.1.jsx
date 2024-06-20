@@ -1,34 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-
 import { Input } from "antd";
-import { Button, Typography } from "antd";
+import { Button } from "antd";
 import { ToastContainer } from "react-toastify";
-
 import { addContact } from "../../redux/contacts/operations";
 import { showToast } from "../../toastify/toastify";
 import { selectContactsList } from "../../redux/contacts/selectors";
-
 import s from "./ContactForm.module.scss";
-
-const INITIAL_STATE = {
-  name: "",
-  number: "",
-};
-
-const { Title, Text } = Typography;
 
 export default function ContactForm() {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContactsList);
 
-  // const [form, setForm] = useState("");
-  const [form, setForm] = useState(INITIAL_STATE);
-
+  // const [form, setForm] = useState(INITIAL_STATE);
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    // const form = e.target;
+    const form = e.target;
     const formName = e.target.elements.name.value;
     const formNumber = e.target.elements.number.value;
     if (contacts.some(({ name }) => name === formName)) {
@@ -50,19 +38,16 @@ export default function ContactForm() {
       ).unwrap();
       showToast(
         "success",
-        `You added a contact   ${originalPromiseResult.name}`
+        `You added a contact  <<${originalPromiseResult.name} `
       );
     } catch (error) {
       showToast("info", "Sorry, something's wrong");
     }
 
-    // form.reset();
-
-    // setForm("");
+    form.reset();
 
     // setForm(INITIAL_STATE);
-
-    return setForm(INITIAL_STATE);
+    return;
   };
 
   return (
@@ -91,7 +76,6 @@ export default function ContactForm() {
           name="number"
           placeholder="Enter phone number"
           value={contacts.phone}
-          // onChange={handleChangeForm}
         />
 
         <Button htmlType="submit" className={s.btn} type="primary" block>

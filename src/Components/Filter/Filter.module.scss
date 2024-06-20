@@ -1,9 +1,22 @@
-.filterContainer {
-  text-align: center;
+// .filterContainer {
+//   display: flex;
+//   align-items: center;
+//   justify-content: start;
 
-  margin-top: 30px;
+//   text-align: center;
+
+//   margin-top: 30px;
+// }
+
+.filterContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  // margin-top: 20px;
 }
 
 .filterInput {
-  width: 182px;
+  width: 197px;
 }

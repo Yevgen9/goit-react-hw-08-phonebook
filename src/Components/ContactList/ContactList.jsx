@@ -19,11 +19,11 @@ export const ContactList = () => {
 
   return (
     <>
-      {visibleContacts.map(({ name, number, id }) => (
+      {visibleContacts?.map(({ name, number, id }) => (
         <ContactsListItem key={id} id={id} name={name} number={number} />
       ))}
 
-      <p>CONTACTS must be here!!!!!!!!!!!!!</p>
+      <ContactsListItem />
     </>
   );
 };

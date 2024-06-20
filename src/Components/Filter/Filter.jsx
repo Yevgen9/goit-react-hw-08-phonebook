@@ -1,8 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
 
+import { Input, Typography } from "antd";
+
 import { setFilter } from "../../redux/contacts/filterSlice";
 import { selectContactsFilter } from "../../redux/contacts/selectors";
 
+import s from "./Filter.module.scss";
+
+const { Title } = Typography;
 export default function Filter() {
   const dispatch = useDispatch();
   const filter = useSelector(selectContactsFilter);
@@ -13,14 +18,19 @@ export default function Filter() {
   };
 
   return (
-    <label>
-      <input
+    <div className={s.filterContainer}>
+      <Title level={2}>Contacts</Title>
+
+      <Input
+        className={s.filterInput}
         type="text"
         name="filter"
-        placeholder="Enter contact name"
+        placeholder="Find contact by name"
         value={filter}
         onChange={handleChangeFilter}
       />
-    </label>
+    </div>
   );
 }
+
+
