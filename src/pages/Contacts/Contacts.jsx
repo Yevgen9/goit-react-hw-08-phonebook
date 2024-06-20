@@ -62,7 +62,7 @@ export default function Contacts() {
   return (
     <>
       <Helmet>
-        <title>Your </title>
+        <title>Phone book</title>
       </Helmet>
       <ContactForm />
       <Filter />

@@ -1,31 +1,68 @@
-import { useSelector } from "react-redux";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 
-import {
-  selectContactsFilter,
-  selectContactsList,
-} from "../../redux/contacts/selectors";
+import { Button, Flex, Typography } from "antd";
+import { ToastContainer } from "react-toastify";
+import { showToast } from "../../toastify/toastify";
 
-import ContactsListItem from "../ContactListItem/ContactListItem";
+import { deleteContact } from "../../redux/contacts/operations";
+import { selectContactsList } from "../../redux/contacts/selectors";
+import { selectContactsFilter } from "../../redux/contacts/selectors";
 
-export const ContactList = () => {
+import s from "../ContactList/ContactList.module.scss";
+
+const { Text } = Typography;
+
+const ContactsList = () => {
   const contacts = useSelector(selectContactsList);
   const filter = useSelector(selectContactsFilter);
+  const dispatch = useDispatch();
 
-  const visibleContacts = [
-    ...contacts.filter((contact) =>
-      contact.name.toLowerCase().includes(filter)
-    ),
-  ];
+  const filteredContacts = contacts.filter((contact) =>
+    contact.name
+      .toLocaleLowerCase()
+      .includes((filter || "").toLocaleLowerCase().trim())
+  );
+
+  const handleDeleteContact = async (contactId) => {
+    try {
+      const originalPromiseResult = await dispatch(
+        deleteContact(contactId)
+      ).unwrap();
+      showToast(
+        "success",
+        `You deleted contact  ${originalPromiseResult.name} `
+      );
+    } catch (error) {
+      showToast("info", "Sorry, something's wrong");
+    }
+  };
 
   return (
-    <>
-      {visibleContacts?.map(({ name, number, id }) => (
-        <ContactsListItem key={id} id={id} name={name} number={number} />
-      ))}
+    <div>
+      <ToastContainer />
 
-      <ContactsListItem />
-    </>
+      <ul className={s.list}>
+        {filteredContacts.map((contact) => (
+          <li key={contact.id} className={s.item}>
+            <Text strong>{contact.name} :</Text>
+            <Text strong>{contact.number}</Text>
+
+            <Flex gap="small" wrap>
+              <Button
+                onClick={() => handleDeleteContact(contact.id)}
+                size="small"
+                type="primary"
+                className={s.btnDel}
+              >
+                Delete Contact
+              </Button>
+            </Flex>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 
-export default ContactList;
+export default ContactsList;
