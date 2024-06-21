@@ -1,11 +1,24 @@
-.home {
+.nav {
+  display: flex;
+  align-items: center;
+}
+
+.homeTitle {
+  display: inline-flex;
+  align-items: stretch;
+
   margin-left: 20px;
+  padding: 0;
 
   text-decoration: none;
 }
 
-.contacts {
+.contactsTitle {
   margin-left: 20px;
+  padding: 0;
 
   text-decoration: none;
+}
+.title {
+  margin: 0;
 }

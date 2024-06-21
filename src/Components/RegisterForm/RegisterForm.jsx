@@ -1,6 +1,12 @@
 import { useDispatch } from "react-redux";
+
+import { Input, Button, Typography } from "antd";
+
 import { register } from "../../redux/auth/operations";
+
 import s from "./RegisterForm.module.scss";
+
+const { Text } = Typography;
 
 export const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -19,20 +25,47 @@ export const RegisterForm = () => {
   };
 
   return (
-    <form className={s.form} onSubmit={handleSubmit} autoComplete="off">
-      <label className={s.label}>
-        Username
-        <input type="text" name="name" />
-      </label>
-      <label className={s.label}>
-        Email
-        <input type="email" name="email" />
-      </label>
-      <label className={s.label}>
-        Password
-        <input type="password" name="password" />
-      </label>
-      <button type="submit">Register</button>
-    </form>
+    <div className={s.formContainer}>
+      <form onSubmit={handleSubmit} className={s.loginForm} autoComplete="off">
+        <label className={s.labelInput}>
+          <Text strong>Username:</Text>
+          <Input
+            className={s.input}
+            type="text"
+            name="username"
+            placeholder="Enter username"
+          />
+        </label>
+
+        <label className={s.labelInput}>
+          <Text strong>Email:</Text>
+          <Input
+            className={s.input}
+            type="email"
+            name="email"
+            placeholder="Enter email"
+          />
+        </label>
+
+        <label className={s.labelInput}>
+          <Text strong>Password:</Text>
+          <Input
+            className={s.input}
+            type="password"
+            name="password"
+            placeholder="Enter password"
+          />
+        </label>
+
+        <Button
+          className={s.logInBtn}
+          htmlType="submit"
+          size="small"
+          type="primary"
+        >
+          Register
+        </Button>
+      </form>
+    </div>
   );
 };

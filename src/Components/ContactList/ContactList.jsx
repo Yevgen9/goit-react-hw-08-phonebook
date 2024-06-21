@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Button, Flex, Typography } from "antd";
@@ -8,6 +8,7 @@ import { showToast } from "../../toastify/toastify";
 import { deleteContact } from "../../redux/contacts/operations";
 import { selectContactsList } from "../../redux/contacts/selectors";
 import { selectContactsFilter } from "../../redux/contacts/selectors";
+import { fetchContacts } from "../../redux/contacts/operations";
 
 import s from "../ContactList/ContactList.module.scss";
 
@@ -17,6 +18,10 @@ const ContactsList = () => {
   const contacts = useSelector(selectContactsList);
   const filter = useSelector(selectContactsFilter);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   const filteredContacts = contacts.filter((contact) =>
     contact.name
@@ -39,28 +44,34 @@ const ContactsList = () => {
   };
 
   return (
-    <div>
+    <div className={s.contactsContainer}>
       <ToastContainer />
 
-      <ul className={s.list}>
+      <table className={s.list}>
         {filteredContacts.map((contact) => (
-          <li key={contact.id} className={s.item}>
-            <Text strong>{contact.name} :</Text>
-            <Text strong>{contact.number}</Text>
+          <tr key={contact.id} className={s.item}>
+            <td className={s.cell}>
+              <Text strong>{contact.name} :</Text>
+            </td>
 
-            <Flex gap="small" wrap>
-              <Button
-                onClick={() => handleDeleteContact(contact.id)}
-                size="small"
-                type="primary"
-                className={s.btnDel}
-              >
-                Delete Contact
-              </Button>
-            </Flex>
-          </li>
+            <td className={s.cell}>
+              <Text strong>{contact.number}</Text>
+            </td>
+
+            <td className={s.cellBtn}>
+              <Flex gap="small" wrap>
+                <Button
+                  onClick={() => handleDeleteContact(contact.id)}
+                  size="small"
+                  type="primary"
+                >
+                  Delete Contact
+                </Button>
+              </Flex>
+            </td>
+          </tr>
         ))}
-      </ul>
+      </table>
     </div>
   );
 };

@@ -3,7 +3,11 @@ import { useDispatch } from "react-redux";
 import { logOut } from "../../redux/auth/operations";
 import { useAuth } from "../../hooks/useAuth";
 
+import { Button, Flex, Typography } from "antd";
+
 import s from "./UserMenu.module.scss";
+
+const { Title } = Typography;
 
 export const UserMenu = () => {
   const dispatch = useDispatch();
@@ -15,10 +19,19 @@ export const UserMenu = () => {
 
   return (
     <div className={s.wrapper}>
-      <p className={s.userEmail}>Welcome, {user.email}</p>
-      <button type="button" onClick={handleClickLogOut}>
-        Logout
-      </button>
+      <Title level={5} className={s.userEmail}>
+        Welcome, {user.name}
+      </Title>
+      <Flex gap="small" wrap>
+        <Button
+          className={s.btnLogOut}
+          size="small"
+          type="primary"
+          onClick={handleClickLogOut}
+        >
+          Logout
+        </Button>
+      </Flex>
     </div>
   );
 };

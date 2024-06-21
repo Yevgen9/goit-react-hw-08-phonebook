@@ -9,7 +9,7 @@ import { RestrictedRoute } from "./RestrictedRoute";
 import { refreshUser } from "../redux/auth/operations";
 import { Layout } from "./Layout";
 
-import { fetchContacts } from "../redux/contacts/operations";
+// import s from './App.module.scss'
 
 const HomePage = lazy(() => import("../pages/Home/Home"));
 const RegisterPage = lazy(() => import("../pages/Register/Register"));
@@ -22,10 +22,6 @@ export const App = () => {
 
   useEffect(() => {
     dispatch(refreshUser());
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(fetchContacts());
   }, [dispatch]);
 
   return isRefreshing ? (

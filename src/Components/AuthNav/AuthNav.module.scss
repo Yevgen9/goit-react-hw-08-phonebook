@@ -1,7 +1,18 @@
+.authNav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
 .register {
-    margin-right: 20px;
+  margin-right: 20px;
+
+  text-decoration: none;
 }
 
 .login {
-    margin-right: 20px;
+  margin-right: 20px;
+
+  text-decoration: none;
 }

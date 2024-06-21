@@ -11,19 +11,25 @@ import { selectContactsList } from "../../redux/contacts/selectors";
 
 import s from "./ContactForm.module.scss";
 
-const INITIAL_STATE = {
-  name: "",
-  number: "",
-};
+// const INITIAL_STATE = {
+//   name: "",
+//   number: "",
+// };
 
 const { Title, Text } = Typography;
 
 export default function ContactForm() {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContactsList);
+  // const [form, setForm] = useState(INITIAL_STATE);
 
-  // const [form, setForm] = useState("");
-  const [form, setForm] = useState(INITIAL_STATE);
+  // const [form, setForm] = useState({
+  //   name: "",
+  //   number: "",
+  // });
+
+  const [name, setName] = useState("");
+  const [number, setNumber] = useState("");
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -56,14 +62,24 @@ export default function ContactForm() {
       showToast("info", "Sorry, something's wrong");
     }
 
-    // form.reset();
-
-    // setForm("");
+    setName("");
+    setNumber("");
 
     // setForm(INITIAL_STATE);
 
-    return setForm(INITIAL_STATE);
+    // setForm({
+    //   name: "",
+    //   number: "",
+    // });
+
+    // form.reset();
+
+    // resetForm();
+
+    // return;
   };
+
+  // const resetForm = () => setForm(INITIAL_STATE);
 
   return (
     <div className={s.formContainer}>
@@ -77,7 +93,6 @@ export default function ContactForm() {
 
         <Input
           value={contacts.name}
-          // onChange={handleChangeForm}
           type="text"
           name="name"
           placeholder="Enter name"
@@ -91,7 +106,6 @@ export default function ContactForm() {
           name="number"
           placeholder="Enter phone number"
           value={contacts.phone}
-          // onChange={handleChangeForm}
         />
 
         <Button htmlType="submit" className={s.btn} type="primary" block>

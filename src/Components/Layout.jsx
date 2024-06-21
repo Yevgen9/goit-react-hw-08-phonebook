@@ -1,11 +1,13 @@
+import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
 
 import { AppBar } from "./AppBar/AppBar";
-import { Suspense } from "react";
+
+import s from './Layout.module.scss'
 
 export const Layout = () => {
   return (
-    <div>
+    <div className={s.layout}>
       <AppBar />
       <Suspense fallback={null}>
         <Outlet />

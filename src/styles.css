@@ -5,6 +5,8 @@ body {
         sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    background-color: rgba(239, 219, 151, 0.524);
 }
 
 code {
@@ -20,4 +22,9 @@ h5,
 h6,
 p {
     margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
 }

@@ -1,12 +1,20 @@
 import { NavLink } from "react-router-dom";
 
-import s from './AuthNav.module.scss'
+import { Typography } from "antd";
+
+import s from "./AuthNav.module.scss";
+
+const { Title } = Typography;
 
 export const AuthNav = () => {
   return (
-    <div>
-      <NavLink className={s.register} to="/register">Register</NavLink>
-      <NavLink className={s.login} to="/login">Log In</NavLink>
+    <div className={s.authNav}>
+      <NavLink className={s.register} to="/register">
+        <Title level={5}>Register</Title>
+      </NavLink>
+      <NavLink className={s.login} to="/login">
+        <Title level={5}>Log In</Title>
+      </NavLink>
     </div>
   );
 };

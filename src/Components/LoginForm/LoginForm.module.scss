@@ -1,0 +1,33 @@
+.formContainer {
+  display: flex;
+  justify-content: center;
+
+  margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.loginForm {
+  width: 400px;
+
+  text-align: center;
+}
+
+.labelInput {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 10px;
+}
+
+.input {
+  max-width: 300px;
+}
+
+.logInBtn {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  padding: 15px;
+}

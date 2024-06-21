@@ -1,20 +1,13 @@
-// .filterContainer {
-//   display: flex;
-//   align-items: center;
-//   justify-content: start;
-
-//   text-align: center;
-
-//   margin-top: 30px;
-// }
-
 .filterContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
-  // margin-top: 20px;
+  max-width: 800px;
+
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .filterInput {
