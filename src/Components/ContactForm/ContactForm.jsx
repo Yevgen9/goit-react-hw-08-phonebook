@@ -11,30 +11,27 @@ import { selectContactsList } from "../../redux/contacts/selectors";
 
 import s from "./ContactForm.module.scss";
 
-// const INITIAL_STATE = {
-//   name: "",
-//   number: "",
-// };
-
 const { Title, Text } = Typography;
+
+const INITIAL_STATE = {
+  name: "",
+  number: "",
+};
 
 export default function ContactForm() {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContactsList);
-  // const [form, setForm] = useState(INITIAL_STATE);
 
-  // const [form, setForm] = useState({
-  //   name: "",
-  //   number: "",
-  // });
+  const [state, setState] = useState(INITIAL_STATE);
 
-  const [name, setName] = useState("");
-  const [number, setNumber] = useState("");
+  const handleChangeForm = ({ target }) => {
+    const { name, value } = target;
+    setState({ ...state, [name]: value });
+  };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    // const form = e.target;
     const formName = e.target.elements.name.value;
     const formNumber = e.target.elements.number.value;
     if (contacts.some(({ name }) => name === formName)) {
@@ -62,24 +59,11 @@ export default function ContactForm() {
       showToast("info", "Sorry, something's wrong");
     }
 
-    setName("");
-    setNumber("");
-
-    // setForm(INITIAL_STATE);
-
-    // setForm({
-    //   name: "",
-    //   number: "",
-    // });
-
-    // form.reset();
-
+    setState(INITIAL_STATE);
     // resetForm();
-
-    // return;
   };
 
-  // const resetForm = () => setForm(INITIAL_STATE);
+  // const resetForm = () => setState(INITIAL_STATE);
 
   return (
     <div className={s.formContainer}>
@@ -92,6 +76,7 @@ export default function ContactForm() {
         </Text>
 
         <Input
+          onChange={handleChangeForm}
           value={contacts.name}
           type="text"
           name="name"
@@ -102,6 +87,7 @@ export default function ContactForm() {
         </Text>
 
         <Input
+          onChange={handleChangeForm}
           type="tel"
           name="number"
           placeholder="Enter phone number"

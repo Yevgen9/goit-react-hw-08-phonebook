@@ -48,29 +48,32 @@ const ContactsList = () => {
       <ToastContainer />
 
       <table className={s.list}>
-        {filteredContacts.map((contact) => (
-          <tr key={contact.id} className={s.item}>
-            <td className={s.cell}>
-              <Text strong>{contact.name} :</Text>
-            </td>
+        <tbody>
+          
+          {filteredContacts.map((contact) => (
+            <tr key={contact.id} className={s.item}>
+              <td className={s.cell}>
+                <Text strong>{contact.name} :</Text>
+              </td>
 
-            <td className={s.cell}>
-              <Text strong>{contact.number}</Text>
-            </td>
+              <td className={s.cell}>
+                <Text strong>{contact.number}</Text>
+              </td>
 
-            <td className={s.cellBtn}>
-              <Flex gap="small" wrap>
-                <Button
-                  onClick={() => handleDeleteContact(contact.id)}
-                  size="small"
-                  type="primary"
-                >
-                  Delete Contact
-                </Button>
-              </Flex>
-            </td>
-          </tr>
-        ))}
+              <td>
+                <Flex gap="small" wrap>
+                  <Button
+                    onClick={() => handleDeleteContact(contact.id)}
+                    size="small"
+                    type="primary"
+                  >
+                    Delete Contact
+                  </Button>
+                </Flex>
+              </td>
+            </tr>
+          ))}
+        </tbody>
       </table>
     </div>
   );
