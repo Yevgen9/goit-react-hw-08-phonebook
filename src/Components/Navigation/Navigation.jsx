@@ -13,12 +13,14 @@ export const Navigation = () => {
 
   return (
     <nav className={s.nav}>
-      <NavLink className={s.homeTitle} to="/">
-        <Title level={5}>Home</Title>
+      <NavLink className={s.home} to="/">
+        <Title className={s.homeTitle} level={5}>
+          Home
+        </Title>
       </NavLink>
       {isLoggedIn && (
-        <NavLink className={s.contactsTitle} to="/contacts">
-          <Title className={s.title} level={5}>
+        <NavLink className={s.contacts} to="/contacts">
+          <Title className={s.contactsTitle} level={5}>
             Contacts
           </Title>
         </NavLink>

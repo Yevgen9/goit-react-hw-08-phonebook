@@ -16,3 +16,25 @@
 
   text-decoration: none;
 }
+
+.registerTitle {
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.logInTitle {
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.registerTitle:hover,
+.registerTitle:focus {
+  color: white;
+  font-weight: bolder;
+}
+
+.logInTitle:hover,
+.logInTitle:focus {
+  color: white;
+  font-weight: bolder;
+}

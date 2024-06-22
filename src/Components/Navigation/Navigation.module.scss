@@ -3,7 +3,7 @@
   align-items: center;
 }
 
-.homeTitle {
+.home {
   display: inline-flex;
   align-items: stretch;
 
@@ -13,12 +13,35 @@
   text-decoration: none;
 }
 
-.contactsTitle {
+.contacts {
   margin-left: 20px;
   padding: 0;
 
   text-decoration: none;
 }
-.title {
+
+.contactsTitle {
   margin: 0;
+}
+
+.homeTitle {
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.contactsTitle {
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.homeTitle:hover,
+.homeTitle:focus {
+  color: white;
+  font-weight: bolder;
+}
+
+.contactsTitle:hover,
+.contactsTitle:focus {
+  color: white;
+  font-weight: bolder;
 }

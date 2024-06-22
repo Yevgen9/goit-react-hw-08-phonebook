@@ -10,10 +10,14 @@ export const AuthNav = () => {
   return (
     <div className={s.authNav}>
       <NavLink className={s.register} to="/register">
-        <Title level={5}>Register</Title>
+        <Title className={s.registerTitle} level={5}>
+          Register
+        </Title>
       </NavLink>
       <NavLink className={s.login} to="/login">
-        <Title level={5}>Log In</Title>
+        <Title className={s.logInTitle} level={5}>
+          Log In
+        </Title>
       </NavLink>
     </div>
   );

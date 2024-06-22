@@ -2,8 +2,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  margin-top: 100px;
 }
 
 .title {
-  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // margin-top: 100px;
+}
+
+.spanIcon {
+  margin-top: 40px;
 }

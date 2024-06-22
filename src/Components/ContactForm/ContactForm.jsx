@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { Input } from "antd";
-import { Button, Typography } from "antd";
+import { Input, Button, Typography } from "antd";
 import { ToastContainer } from "react-toastify";
 
 import { addContact } from "../../redux/contacts/operations";
@@ -32,13 +31,13 @@ export default function ContactForm() {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    const formName = e.target.elements.name.value;
-    const formNumber = e.target.elements.number.value;
+    const formName = state.name;
+    const formNumber = state.number;
     if (contacts.some(({ name }) => name === formName)) {
-      return showToast("info", `${formName}  is already in contacts`);
+      return showToast("info", `${formName} is already in contacts`);
     }
     if (contacts.some(({ number }) => number === formNumber)) {
-      return showToast("info", `${formNumber}  is already in contacts`);
+      return showToast("info", `${formNumber} is already in contacts`);
     }
     if (formName === "") {
       return showToast("error", "Please, enter a name");
@@ -51,19 +50,13 @@ export default function ContactForm() {
       const originalPromiseResult = await dispatch(
         addContact({ name: formName, number: formNumber.toString() })
       ).unwrap();
-      showToast(
-        "success",
-        `You added a contact   ${originalPromiseResult.name}`
-      );
+      showToast("success", `You added a contact ${originalPromiseResult.name}`);
     } catch (error) {
       showToast("info", "Sorry, something's wrong");
     }
 
     setState(INITIAL_STATE);
-    // resetForm();
   };
-
-  // const resetForm = () => setState(INITIAL_STATE);
 
   return (
     <div className={s.formContainer}>
@@ -77,7 +70,7 @@ export default function ContactForm() {
 
         <Input
           onChange={handleChangeForm}
-          value={contacts.name}
+          value={state.name}
           type="text"
           name="name"
           placeholder="Enter name"
@@ -91,7 +84,7 @@ export default function ContactForm() {
           type="tel"
           name="number"
           placeholder="Enter phone number"
-          value={contacts.phone}
+          value={state.number}
         />
 
         <Button htmlType="submit" className={s.btn} type="primary" block>
