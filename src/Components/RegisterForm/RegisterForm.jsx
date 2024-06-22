@@ -32,7 +32,7 @@ export const RegisterForm = () => {
           <Input
             className={s.input}
             type="text"
-            name="username"
+            name="name"
             placeholder="Enter username"
           />
         </label>

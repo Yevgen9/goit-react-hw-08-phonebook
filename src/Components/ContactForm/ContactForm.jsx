@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { Input, Button, Typography } from "antd";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 import { addContact } from "../../redux/contacts/operations";
 import { showToast } from "../../toastify/toastify";
@@ -35,7 +34,7 @@ export default function ContactForm() {
     const formName = state.name;
     const formNumber = state.number;
     if (contacts.some(({ name }) => name === formName)) {
-      return  showToast("info", `${formName} is already in contacts`);
+      return showToast("info", `${formName} is already in contacts`);
     }
     if (contacts.some(({ number }) => number === formNumber)) {
       return showToast("info", `${formNumber} is already in contacts`);
@@ -56,41 +55,47 @@ export default function ContactForm() {
       showToast("info", "Sorry, something's wrong");
     }
 
+    resetForm();
+  };
+
+  const resetForm = () => {
     setState(INITIAL_STATE);
   };
 
   return (
-    <div className={s.formContainer}>
-      <form className={s.form} onSubmit={handleFormSubmit}>
-        <Title className={s.title}>Phonebook</Title>
-        <Text className={s.text} strong>
-          Name
-        </Text>
-
-        <Input
-          onChange={handleChangeForm}
-          value={state.name}
-          type="text"
-          name="name"
-          placeholder="Enter name"
-        />
-        <Text className={s.text} strong>
-          Number
-        </Text>
-
-        <Input
-          onChange={handleChangeForm}
-          type="tel"
-          name="number"
-          placeholder="Enter phone number"
-          value={state.number}
-        />
-
-        <Button htmlType="submit" className={s.btn} type="primary" block>
-          Add Contact
-        </Button>
-      </form>
+    <>
       <ToastContainer />
-    </div>
+      <div className={s.formContainer}>
+        <form className={s.form} onSubmit={handleFormSubmit}>
+          <Title className={s.title}>Phonebook</Title>
+          <Text className={s.text} strong>
+            Name
+          </Text>
+
+          <Input
+            onChange={handleChangeForm}
+            value={state.name}
+            type="text"
+            name="name"
+            placeholder="Enter name"
+          />
+          <Text className={s.text} strong>
+            Number
+          </Text>
+
+          <Input
+            onChange={handleChangeForm}
+            type="tel"
+            name="number"
+            placeholder="Enter phone number"
+            value={state.number}
+          />
+
+          <Button htmlType="submit" className={s.btn} type="primary" block>
+            Add Contact
+          </Button>
+        </form>
+      </div>
+    </>
   );
 }

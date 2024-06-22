@@ -31,13 +31,10 @@ const ContactsList = () => {
 
   const handleDeleteContact = async (contactId) => {
     try {
-      const originalPromiseResult = await dispatch(
+      const deleteContactName = await dispatch(
         deleteContact(contactId)
       ).unwrap();
-      showToast(
-        "success",
-        `You deleted contact  ${originalPromiseResult.name} `
-      );
+      showToast("success", `You deleted contact  ${deleteContactName.name} `);
     } catch (error) {
       showToast("info", "Sorry, something's wrong");
     }
