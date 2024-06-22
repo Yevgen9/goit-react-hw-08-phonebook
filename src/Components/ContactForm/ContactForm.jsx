@@ -50,7 +50,8 @@ export default function ContactForm() {
       const newContact = await dispatch(
         addContact({ name: formName, number: formNumber.toString() })
       ).unwrap();
-      showToast("success", `You added a contact ${newContact.name}`);
+
+      // showToast("success", `You added a contact ${newContact.name}`);
     } catch (error) {
       showToast("info", "Sorry, something's wrong");
     }
