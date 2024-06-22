@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { Input, Button, Typography } from "antd";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { addContact } from "../../redux/contacts/operations";
 import { showToast } from "../../toastify/toastify";
@@ -34,7 +35,7 @@ export default function ContactForm() {
     const formName = state.name;
     const formNumber = state.number;
     if (contacts.some(({ name }) => name === formName)) {
-      return showToast("info", `${formName} is already in contacts`);
+      return  showToast("info", `${formName} is already in contacts`);
     }
     if (contacts.some(({ number }) => number === formNumber)) {
       return showToast("info", `${formNumber} is already in contacts`);
@@ -47,10 +48,10 @@ export default function ContactForm() {
     }
 
     try {
-      const originalPromiseResult = await dispatch(
+      const newContact = await dispatch(
         addContact({ name: formName, number: formNumber.toString() })
       ).unwrap();
-      showToast("success", `You added a contact ${originalPromiseResult.name}`);
+      showToast("success", `You added a contact ${newContact.name}`);
     } catch (error) {
       showToast("info", "Sorry, something's wrong");
     }
@@ -60,8 +61,6 @@ export default function ContactForm() {
 
   return (
     <div className={s.formContainer}>
-      <ToastContainer />
-
       <form className={s.form} onSubmit={handleFormSubmit}>
         <Title className={s.title}>Phonebook</Title>
         <Text className={s.text} strong>
@@ -91,6 +90,7 @@ export default function ContactForm() {
           Add Contact
         </Button>
       </form>
+      <ToastContainer />
     </div>
   );
 }

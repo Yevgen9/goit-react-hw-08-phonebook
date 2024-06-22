@@ -49,7 +49,6 @@ const ContactsList = () => {
 
       <table className={s.list}>
         <tbody>
-          
           {filteredContacts.map((contact) => (
             <tr key={contact.id} className={s.item}>
               <td className={s.cell}>
